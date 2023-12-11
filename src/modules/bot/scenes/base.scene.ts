@@ -88,6 +88,10 @@ export class BaseScene {
       const hm_id = hm.replace(/\D/g, '');
       const homework = await this.botService.getHomework(hm_id);
       const day = new Date();
+      await ctx.reply(
+        `*Срок сдачи до ${new Date(homework.due_to).toDateString()}*`,
+        { parse_mode: 'Markdown' },
+      );
       await ctx.reply(homework.homework_id.description);
       if (homework.due_to < day) {
         await ctx.replyWithHTML(`*Время отправки домашнего задания прошло.*`, {
