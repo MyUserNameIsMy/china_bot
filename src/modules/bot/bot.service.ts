@@ -140,18 +140,20 @@ export class BotService {
         const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
         const message = `До конца сдачи задания осталось ${hours} часов ${minutes} минут.`;
         if (timeDiff < 0) continue;
-        try {
-          await this.forwardToAdmin(
-            message + ' ' + student.student_id['telegram_id'],
-          );
-          await this.bot.telegram.sendMessage(
-            student.student_id['telegram_id'],
-            message,
-          );
-        } catch (err) {
-          await this.forwardToAdmin(
-            err.message + 'notify' + student.student_id['telegram_id'],
-          );
+        if (hours <= 12 || hours <= 6 || hours <= 3) {
+          try {
+            await this.forwardToAdmin(
+              message + ' ' + student.student_id['telegram_id'],
+            );
+            await this.bot.telegram.sendMessage(
+              student.student_id['telegram_id'],
+              message,
+            );
+          } catch (err) {
+            await this.forwardToAdmin(
+              err.message + 'notify' + student.student_id['telegram_id'],
+            );
+          }
         }
       }
     } catch (err) {
