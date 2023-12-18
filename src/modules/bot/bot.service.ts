@@ -140,7 +140,7 @@ export class BotService {
         const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
         const message = `До конца сдачи задания осталось ${hours} часов ${minutes} минут.`;
         if (timeDiff < 0) continue;
-        if (hours <= 12 || hours <= 6 || hours <= 3) {
+        if (hours == 12 || hours == 6 || hours == 3) {
           try {
             await this.forwardToAdmin(
               message + ' ' + student.student_id['telegram_id'],
