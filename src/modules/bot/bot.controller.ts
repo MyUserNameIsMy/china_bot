@@ -18,7 +18,16 @@ export class BotController {
           'Если у вас возникли проблемы с домашнем заданием то обратитесь техническому специалисту https://t.me/DoubledBo.',
       );
     } catch (err) {
-      await this.botService.forwardToAdmin(err.message + ' ' + 'tg_id');
+      await this.botService.forwardToAdmin(err.message + ' ' + tg_id);
+    }
+  }
+
+  @Post('notify-assigned-task')
+  async notifyAssignedTask(@Body() body: any) {
+    try {
+      await this.botService.notifyStudents(body);
+    } catch (err) {
+      await this.botService.forwardToAdmin(err.message + ' ');
     }
   }
 }
